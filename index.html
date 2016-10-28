@@ -1,0 +1,117 @@
+<! doctype html>
+<html>
+<head>
+<title>Quiz</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<link rel="stylesheet" href="assets/css/reset.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="assets/css/quiz.css"
+<div class="jumbotron">
+  <div class="container">
+   <h1 align="center">Quiz Time! </h1>
+  </div>
+  <div align="center" class="col-lg-12 col-md-6">
+  	<p> You will get 5 seconds to answer each question</p>
+  	<div  class="clock">
+  		<p id = "txt" > </p>
+  		<p></p>
+  	</div>
+  	<div class="btn-group">
+  		<button id ="start-quiz" class="btn btn-default btn-lg dropdown-toggle" type="button"  aria-haspopup="true" aria-expanded="true">
+  			Start 
+  		</button>
+  	</div>
+  	
+  </div>
+</div>
+</head>
+<body >
+	<div class="askhere">
+  	  <p id="ansthis"></p>
+  	  <div class="userenter">
+  	      <input type="radio" name="usercho" value="True" /> True
+	      <input type="radio" name="usercho" value="False" /> False
+	     
+      </div>
+  	</div>
+
+</body>
+<script type="text/javascript" src="assets/javascript/know.js"></script>
+<script type="text/javascript" src="assets/javascript/rollit.js"></script>
+<!-- <script type="text/javascript" src="assets/javascript/nextq.js"></script>
+ -->
+ <!-- <script type="text/javascript" src="assets/javascript/quiztime.js"></script> -->
+<script>
+$(document).ready(function()
+{
+$("#start-quiz").on("click",quizTime);
+});
+
+var count = 0;
+var s = 0;
+var cans = 0;
+ var nextQuestion = function(count)
+{
+	if (count <5)
+	{
+	console.log(count, 'num', $('input[name=usercho]:radio:checked').val() );
+	console.log(quiz);
+	getQues = quiz[count];
+	console.log(getQues);
+	
+	$("#ansthis").text(getQues.question);
+	
+	
+	var u = setInterval("s++; document.getElementById('txt').innerHTML = s;if(this.s==5) {s=0;};quizTime; ", 1000);
+  
+	if ($('input[name=usercho]:radio:checked').val() === getQues.answer)
+		{
+			cans++; //add to number of correct answers
+			//reset checked
+			$("input[name=usercho]").prop(
+        "checked", false);
+		};
+	}
+	else
+	{
+		correctAnswer;
+	}
+
+
+		
+} 
+
+ var quizTime = function ()
+{
+    
+    
+    $(".clock").attr("style", "visibility: visible");
+	$(".askhere").attr("style", "visibility: visible");
+	$(".userenter").attr("style", "visibility: visible");
+	$("#start-quiz").attr("style", "visibility: hidden");
+	
+    
+    if (count <=4)
+    {
+     var t = setInterval("nextQuestion(this.count); count++", 5000);
+     console.log("count ", count);
+    }
+    else
+    {
+    	clearInterval(t);
+    }
+    
+    
+}
+
+var correctAnswer = function(ans)
+{
+	$(".clock").attr("style", "visibility: hidden");
+	$(".askhere").attr("style", "visibility: visible");
+	$(".userenter").attr("style", "visibility: hidden");
+  $("#ansthis").text("you got " + cans + " right ");
+
+}
+
+</script>
+</html>

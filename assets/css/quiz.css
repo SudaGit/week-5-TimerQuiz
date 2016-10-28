@@ -1,0 +1,45 @@
+.clock{
+	background: url("../images/clock.png") no-repeat;
+	width:250;
+	height:250;
+	z-index: -10
+	font-weight:14px;
+	visibility:hidden;
+}
+
+#txt
+ {
+  font-size: 150px;
+}
+
+.askhere
+{
+display: block;
+width:800;
+height:400;
+background-color: ivory;
+visibility:hidden;
+margin-top:270px;
+margin-left:350px;
+
+}
+
+#ansthis
+{
+	font-size = 200px;
+	
+}
+
+.btn-lg
+{
+	color:white;
+	font-style:bold;
+	background-color: black;
+}
+
+.userenter{
+	padding:100px;
+	margin-top:60px;
+	margin-left:250px;
+	visibility:hidden;
+}
