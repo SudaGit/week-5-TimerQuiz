@@ -5,7 +5,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <link rel="stylesheet" href="assets/css/reset.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="assets/css/quiz.css"
+<link rel="stylesheet" href="assets/css/quiz.css">
+<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 <div class="jumbotron">
   <div class="container">
    <h1 align="center">Quiz Time! </h1>
@@ -44,7 +45,8 @@
 <script>
 $(document).ready(function()
 {
-$("#start-quiz").on("click",quizTime);
+$("#start-quiz").on("click",quizTime );
+correctAnswer;
 });
 
 var count = 0;
@@ -52,34 +54,44 @@ var s = 0;
 var cans = 0;
  var nextQuestion = function(count)
 {
-	if (count <5)
+	if (count <=4)
 	{
 	console.log(count, 'num', $('input[name=usercho]:radio:checked').val() );
-	console.log(quiz);
 	getQues = quiz[count];
 	console.log(getQues);
 	
 	$("#ansthis").text(getQues.question);
 	
-	
-	var u = setInterval("s++; document.getElementById('txt').innerHTML = s;if(this.s==5) {s=0;};quizTime; ", 1000);
+	$('.userenter').attr('style', 'visibility: visible');
+  $("input[name=usercho]:radio").disabled= false;
+ 
+	var u = setInterval("s++; document.getElementById('txt').innerHTML = s;if(s==5 ){s=0;}", 1000);
   
-	if ($('input[name=usercho]:radio:checked').val() === getQues.answer)
-		{
-			cans++; //add to number of correct answers
-			//reset checked
-			$("input[name=usercho]").prop(
-        "checked", false);
-		};
-	}
-	else
-	{
-		correctAnswer;
-	}
+  checkAnswer(count);
+    
+ //  else
+	// {
+ //  		console.log('else', count);
+ //  		correctAnswer;
+ //  		clearTimeout(u);
+	// } 
 
+	console.log('nextquestion', count);
+  if (count >= 4)
+  {
+    correctAnswer();
+    console.log('call correctAnswer', count);
+  }
+  
+	return;
+ }
+};
 
-		
-} 
+var setR = function()
+{
+  $("input[name=usercho]:radio")[count].checked = false; 
+  $("input[name=usercho]:radio")[count].disabled= false;
+}
 
  var quizTime = function ()
 {
@@ -87,31 +99,50 @@ var cans = 0;
     
     $(".clock").attr("style", "visibility: visible");
 	$(".askhere").attr("style", "visibility: visible");
-	$(".userenter").attr("style", "visibility: visible");
-	$("#start-quiz").attr("style", "visibility: hidden");
 	
+	$("#start-quiz").attr("style", "visibility: hidden");
+ 	
     
-    if (count <=4)
-    {
-     var t = setInterval("nextQuestion(this.count); count++", 5000);
+    
      console.log("count ", count);
-    }
-    else
-    {
-    	clearInterval(t);
-    }
-    
-    
-}
+     // call quizTime 5 times at intervals of 5 seconds
+    var t = setInterval("if (count<=4){nextQuestion(count); $('input[name=usercho]').prop('checked', false);count++;console.log('quiztime', count); }", 5000);
 
-var correctAnswer = function(ans)
+
+    
+    return;
+};
+
+var correctAnswer = function()
 {
 	$(".clock").attr("style", "visibility: hidden");
 	$(".askhere").attr("style", "visibility: visible");
 	$(".userenter").attr("style", "visibility: hidden");
-  $("#ansthis").text("you got " + cans + " right ");
+  $("#ansthis").text("you got " + cans + " answers right ");
+  console.log("called", "correctAnswer");
+  return;
+
+};
+
+var checkAnswer = function(count)
+{
+  $(".userenter input[type='radio']").click(
+       function (data){
+        $("input[name=usercho]:radio")[count].disabled= true;
+      if ($("input[name=usercho]:radio:checked").val() === getQues.answer)
+      {
+          cans++; //add to number of correct answers
+          //reset checked
+          console.log('Ans',count,  cans, data, getQues.answer, $("input[name=usercho]:radio:checked").val());
+          
+      }
+
+      
+      
+      $("input[name=usercho]:radio")[count].disabled= false;
+      return true;
+     });//change function
 
 }
-
 </script>
 </html>
