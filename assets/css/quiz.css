@@ -21,7 +21,13 @@ background-color: ivory;
 visibility:hidden;
 margin-top:270px;
 margin-left:350px;
+font-weight:900;
+font-size:40px;
+font-family: 'Yellowtail', cursive;
+}
 
+.userenter input[type="radio"]:focus {
+    background-color: blue;
 }
 
 #ansthis
